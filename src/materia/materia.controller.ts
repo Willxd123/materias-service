@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 import { MateriaService } from './materia.service';
 import { CreateMateriaDto } from './dto/create-materia.dto';
 import { UpdateMateriaDto } from './dto/update-materia.dto';
@@ -23,7 +23,11 @@ export class MateriaController {
   findAll() {
     return this.materiaService.findAll();
   }
-
+  @Get('con-prerequisitos')
+  @ApiOperation({ summary: 'Obtener todas las materias con sus prerequisitos' })
+  findAllConPrerequisitos() {
+    return this.materiaService.findAllConPrerequisitos();
+  }
   @Get(':id')
   @ApiOperation({ summary: 'Obtener una materia por ID' })
   @ApiResponse({ status: 200, description: 'Materia encontrada con sus prerequisitos' })
@@ -48,4 +52,6 @@ export class MateriaController {
   remove(@Param('id') id: string) {
     return this.materiaService.remove(+id);
   }
+
+ 
 }
